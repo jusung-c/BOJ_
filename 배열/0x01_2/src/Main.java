@@ -4,14 +4,16 @@ import java.util.StringTokenizer;
 public class Main {
     public static int func2(int[] arr, int N) {
         boolean[] cnt = new boolean[101];
+
+        int result = 0;
         for(int i=0; i<N; i++) {
             if(cnt[100-arr[i]] == true) {
-                return 1;
+                result++;
             }
             cnt[arr[i]]=true;
         }
 
-        return 0;
+        return result;
     }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
