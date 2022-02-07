@@ -19,6 +19,7 @@ public class Main {
         for (int i=0; i<N; i++) {
             arr[i] = Integer.parseInt(br.readLine());
             if (Able) {
+                // 입력 받은 수가 start보다 크면 거기까지 push
                 if (start <= arr[i]) {
                     for (int j=start; j<=arr[i]; j++) {
                         s.push(start++);
@@ -26,6 +27,7 @@ public class Main {
                     }
                 }
 
+                // 스택 s가 비면 더 이상 원하는 수를 pop할 수 없다는 뜻.
                 if(s.isEmpty()) {
                     Able = false;
                 }
