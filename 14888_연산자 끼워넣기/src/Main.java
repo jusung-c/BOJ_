@@ -11,47 +11,42 @@ public class Main {
     public static void main(String[] args) throws IOException {
         input();
 
-        rec_fuc(1);
+        // 처음에는 첫 번째 원소가 이제까지 계산된 value값임
+        rec_fuc(1, num[1]);
 
         bw.write(max + "\n"+min);
         bw.close();
     }
 
-    static int calculator() {
-        // nums, order
-        int value = num[1];
-        for (int i = 1; i <= N - 1; i++) {
+    // 이제까지 계산된 value와 다음 계산할 값 operand를 i 연산자로 계산
+    static int calculator(int value, int i, int operand) {
 
-            // 더하기
-            if (order[i] == 1) {
-                value += num[i + 1];
-            }
+        // 더하기
+        if (i == 1) {
+            return value + operand;
+        }
 
-            // 빼기
-            if (order[i] == 2) {
-                value -= num[i + 1];
-            }
+        // 빼기
+        if (i == 2) {
+            return value - operand;
+        }
 
-            // 곱하기
-            if (order[i] == 3) {
-                value *= num[i + 1];
-            }
+        // 곱하기
+        if (i == 3) {
+            return value * operand;
+        }
 
-            // 나누기
-            if (order[i] == 4) {
-                value /= num[i + 1];
-            }
+        // 나누기
+        if (i == 4) {
+            return value / operand;
         }
 
         return value;
     }
 
-    private static void rec_fuc(int k) {
+    private static void rec_fuc(int k, int value) {
         // 한 케이스 선택 완료
         if (k == N) {
-            // 결정된 연산자 조합으로 계산 후 갱신
-            int value = calculator();
-
             max = Math.max(max, value);
             min = Math.min(min, value);
         } else {
@@ -61,7 +56,9 @@ public class Main {
                     operator[i]--;
                     order[k] = i;
 
-                    rec_fuc(k + 1);
+                    int new_value = calculator(value, i, num[k + 1]);
+
+                    rec_fuc(k + 1, new_value);
 
                     // 다시 초기화
                     operator[i]++;
